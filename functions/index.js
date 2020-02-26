@@ -4,7 +4,7 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 
-const serviceAccount = require('./placesearch-6671d-firebase-adminsdk-171fn-173eed2b15.json');
+const serviceAccount = require('./key.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -18,7 +18,7 @@ app.use(bodyParser({extended: true}));
 const db = admin.firestore();
 
 app.post('/result', async (req, res) => {
-  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.body.lat},${req.body.lng}&radius=5000&type=restaurant&key=AIzaSyBsfMtDfr-TprtQ9B6ovh5YmSZgObYO-YE`;
+  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${req.body.lat},${req.body.lng}&radius=5000&type=restaurant&key=${key}`;
 
   const respHandler = async (err, response, body) => {
     console.log('error:', err);
